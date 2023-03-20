@@ -11,7 +11,7 @@ CREATE TABLE app_user (
     username VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(200) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100),
+    last_name VARCHAR(100) NOT NULL,
     CONSTRAINT pk_user PRIMARY KEY(user_id)
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE restaurant (
 CREATE SEQUENCE entry_serial;
 CREATE TABLE entry (
     entry_id INT NOT NULL DEFAULT nextval('entry_serial'),
-    food_name VARCHAR(100) NOT NULL,
+    entry_name VARCHAR(100) NOT NULL,
     location_id INT,
     restaurant_id INT,
     date_time TIMESTAMP NOT NULL,

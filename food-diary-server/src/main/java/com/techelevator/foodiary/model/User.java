@@ -3,6 +3,7 @@ package com.techelevator.foodiary.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -10,12 +11,16 @@ import java.util.Set;
 public class User {
 
    private int id;
+   @NotBlank(message="The field 'username' is required.")
    private String username;
    @JsonIgnore // prevent from being sent to client
+   @NotBlank(message="The field 'password' is required.")
    private String password;
    @JsonProperty("first_name")
+   @NotBlank(message="The field 'firstName' is required.")
    private String firstName;
    @JsonProperty("last_name")
+   @NotBlank(message="The field 'lastName' is required.")
    private String lastName;
    @JsonIgnore
    private boolean activated;
