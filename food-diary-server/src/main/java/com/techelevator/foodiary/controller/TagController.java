@@ -21,7 +21,7 @@ public class TagController {
     @GetMapping("/tags")
     @PreAuthorize("permitAll")
     public List<Tag> getTags() {
-        return tagService.getTags();
+        return tagService.listAllTags();
     }
 
 }

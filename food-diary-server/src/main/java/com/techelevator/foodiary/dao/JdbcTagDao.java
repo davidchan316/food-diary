@@ -18,7 +18,7 @@ public class JdbcTagDao implements TagDao {
     }
 
     @Override
-    public List<Tag> findAll() {
+    public List<Tag> listAllTags() {
         List<Tag> tags = new ArrayList<>();
         String sql = "SELECT tag_id, tag_type, tag_name FROM tag";
 

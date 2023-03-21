@@ -15,8 +15,8 @@ public class TagService {
         this.tagDao = tagDao;
     }
 
-    public List<Tag> getTags() {
-        return tagDao.findAll();
+    public List<Tag> listAllTags() {
+        return tagDao.listAllTags();
     }
 
 }

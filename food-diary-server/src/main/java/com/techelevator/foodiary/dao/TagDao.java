@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface TagDao {
 
-    List<Tag> findAll();
+    List<Tag> listAllTags();
 
 }
