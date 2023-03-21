@@ -1,5 +1,7 @@
 package com.techelevator.foodiary.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -7,10 +9,13 @@ import java.util.Objects;
 
 public class Tag {
 
+    @JsonProperty("tag_id")
     private int tagId;
+    @JsonProperty("tag_type")
     @Min(value = 1, message = "The tag types range from 1 to 7.")
     @Max(value = 7, message = "The tag types range from 1 to 7.")
     private int tagType;
+    @JsonProperty("tag_name")
     @NotBlank(message = "The field 'tagName' is required.")
     private String tagName;
 
