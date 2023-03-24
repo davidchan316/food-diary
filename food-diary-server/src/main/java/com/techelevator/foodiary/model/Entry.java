@@ -11,9 +11,10 @@ import java.util.Objects;
 public class Entry {
 
     private int entryId;
+    @Min(value = 1, message = "The field 'diaryId' is required.")
+    private int diaryId;
     @NotBlank(message = "The field 'entryName' is required.")
     private String entryName;
-    private int locationId;
     private int restaurantId;
     @NotNull(message = "The field 'dateTime' is required.")
     private LocalDateTime dateTime;
@@ -28,10 +29,10 @@ public class Entry {
 
     }
 
-    public Entry(int entryId, String entryName, int locationId, int restaurantId, LocalDateTime dateTime, String description, BigDecimal price, BigDecimal rating) {
+    public Entry(int entryId, int diaryId, String entryName, int restaurantId, LocalDateTime dateTime, String description, BigDecimal price, BigDecimal rating) {
         this.entryId = entryId;
+        this.diaryId = diaryId;
         this.entryName = entryName;
-        this.locationId = locationId;
         this.restaurantId = restaurantId;
         this.dateTime = dateTime;
         this.description = description;
@@ -47,20 +48,20 @@ public class Entry {
         this.entryId = entryId;
     }
 
+    public int getDiaryId() {
+        return diaryId;
+    }
+
+    public void setDiaryId(int diaryId) {
+        this.diaryId = diaryId;
+    }
+
     public String getEntryName() {
         return entryName;
     }
 
     public void setEntryName(String entryName) {
         this.entryName = entryName;
-    }
-
-    public int getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
     }
 
     public int getRestaurantId() {
@@ -103,25 +104,26 @@ public class Entry {
         this.rating = rating;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Entry entry = (Entry) o;
-        return entryId == entry.entryId && locationId == entry.locationId && restaurantId == entry.restaurantId && Objects.equals(entryName, entry.entryName) && Objects.equals(dateTime, entry.dateTime) && Objects.equals(description, entry.description) && Objects.equals(price, entry.price) && Objects.equals(rating, entry.rating);
+        return entryId == entry.entryId && diaryId == entry.diaryId && restaurantId == entry.restaurantId && Objects.equals(entryName, entry.entryName) && Objects.equals(dateTime, entry.dateTime) && Objects.equals(description, entry.description) && Objects.equals(price, entry.price) && Objects.equals(rating, entry.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(entryId, entryName, locationId, restaurantId, dateTime, description, price, rating);
+        return Objects.hash(entryId, diaryId, entryName, restaurantId, dateTime, description, price, rating);
     }
 
     @Override
     public String toString() {
         return "Entry{" +
                 "entryId=" + entryId +
+                ", diaryId=" + diaryId +
                 ", entryName='" + entryName + '\'' +
-                ", locationId=" + locationId +
                 ", restaurantId=" + restaurantId +
                 ", dateTime=" + dateTime +
                 ", description='" + description + '\'' +
@@ -129,5 +131,4 @@ public class Entry {
                 ", rating=" + rating +
                 '}';
     }
-
 }

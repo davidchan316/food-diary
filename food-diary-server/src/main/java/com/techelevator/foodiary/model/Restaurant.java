@@ -1,25 +1,36 @@
 package com.techelevator.foodiary.model;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 public class Restaurant {
 
     private int restaurantId;
-    @Min(value = 1, message = "The field 'locationId' is required.")
-    private int locationId;
     @NotBlank(message = "The field 'restaurantName' is required.")
     private String restaurantName;
+    @NotBlank(message="The field 'address' is required.")
+    private String address;
+    @NotBlank(message="The field 'city' is required.")
+    private String city;
+    @NotBlank(message="The field 'state' is required.")
+    private String state;
+    @NotBlank(message="The field 'postalCode' is required.")
+    private String postalCode;
+    @NotBlank(message="The field 'country' is required.")
+    private String country;
 
     public Restaurant() {
 
     }
 
-    public Restaurant(int restaurantId, int locationId, String restaurantName) {
+    public Restaurant(int restaurantId, String restaurantName, String address, String city, String state, String postalCode, String country) {
         this.restaurantId = restaurantId;
-        this.locationId = locationId;
         this.restaurantName = restaurantName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+        this.country = country;
     }
 
     public int getRestaurantId() {
@@ -30,14 +41,6 @@ public class Restaurant {
         this.restaurantId = restaurantId;
     }
 
-    public int getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
-    }
-
     public String getRestaurantName() {
         return restaurantName;
     }
@@ -46,26 +49,69 @@ public class Restaurant {
         this.restaurantName = restaurantName;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Restaurant that = (Restaurant) o;
-        return restaurantId == that.restaurantId && locationId == that.locationId && Objects.equals(restaurantName, that.restaurantName);
+        return restaurantId == that.restaurantId && Objects.equals(restaurantName, that.restaurantName) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(postalCode, that.postalCode) && Objects.equals(country, that.country);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(restaurantId, locationId, restaurantName);
+        return Objects.hash(restaurantId, restaurantName, address, city, state, postalCode, country);
     }
 
     @Override
     public String toString() {
         return "Restaurant{" +
                 "restaurantId=" + restaurantId +
-                ", locationId=" + locationId +
                 ", restaurantName='" + restaurantName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", country='" + country + '\'' +
                 '}';
     }
-
 }
