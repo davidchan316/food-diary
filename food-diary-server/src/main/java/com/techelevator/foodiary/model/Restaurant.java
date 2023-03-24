@@ -1,11 +1,15 @@
 package com.techelevator.foodiary.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 public class Restaurant {
 
+    @JsonProperty("restaurant_id")
     private int restaurantId;
+    @JsonProperty("restaurant_name")
     @NotBlank(message = "The field 'restaurantName' is required.")
     private String restaurantName;
     @NotBlank(message="The field 'address' is required.")
@@ -14,6 +18,7 @@ public class Restaurant {
     private String city;
     @NotBlank(message="The field 'state' is required.")
     private String state;
+    @JsonProperty("postal_code")
     @NotBlank(message="The field 'postalCode' is required.")
     private String postalCode;
     @NotBlank(message="The field 'country' is required.")
