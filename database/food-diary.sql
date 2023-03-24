@@ -1,8 +1,8 @@
 START TRANSACTION;
 
-DROP TABLE IF EXISTS diary_entry, entry_tag, restaurant_tag CASCADE;
-DROP TABLE IF EXISTS entry, tag, location, restaurant, diary, app_user CASCADE;
-DROP SEQUENCE IF EXISTS user_serial, diary_serial, location_serial, restaurant_serial, entry_serial, tag_serial;
+DROP TABLE IF EXISTS entry_tag, restaurant_tag CASCADE;
+DROP TABLE IF EXISTS entry, tag, restaurant, diary, app_user CASCADE;
+DROP SEQUENCE IF EXISTS user_serial, diary_serial, restaurant_serial, entry_serial, tag_serial;
 
 -- user table
 CREATE SEQUENCE user_serial;
@@ -25,53 +25,36 @@ CREATE TABLE diary (
     CONSTRAINT fk_diary_user FOREIGN KEY(user_id) REFERENCES app_user(user_id)
 );
 
--- location table
-CREATE SEQUENCE location_serial;
-CREATE TABLE location (
-    location_id INT NOT NULL DEFAULT nextval('location_serial'),
+-- restaurant table
+CREATE SEQUENCE restaurant_serial;
+CREATE TABLE restaurant (
+    restaurant_id INT NOT NULL DEFAULT nextval('restaurant_serial'),
+    restaurant_name VARCHAR(100) NOT NULL,
     address VARCHAR(100) NOT NULL UNIQUE,
     city VARCHAR(100) NOT NULL,
     state VARCHAR(100) NOT NULL,
     postal_code VARCHAR(100) NOT NULL,
     country VARCHAR(100) NOT NULL,
-    CONSTRAINT pk_location PRIMARY KEY(location_id)
-);
-
--- restaurant table
-CREATE SEQUENCE restaurant_serial;
-CREATE TABLE restaurant (
-    restaurant_id INT NOT NULL DEFAULT nextval('restaurant_serial'),
-    location_id INT NOT NULL,
-    restaurant_name VARCHAR(100) NOT NULL,
     CONSTRAINT pk_restaurant PRIMARY KEY(restaurant_id),
-    CONSTRAINT fk_restaurant_location FOREIGN KEY(location_id) REFERENCES location(location_id)
 );
 
 -- entry table
 CREATE SEQUENCE entry_serial;
 CREATE TABLE entry (
     entry_id INT NOT NULL DEFAULT nextval('entry_serial'),
+    diary_id INT NOT NULL,
     entry_name VARCHAR(100) NOT NULL,
-    location_id INT,
     restaurant_id INT,
     date_time TIMESTAMP NOT NULL,
     description VARCHAR(500),
     price DECIMAL(5,2),
     rating DECIMAL(3,2),
+    
     CONSTRAINT pk_entry PRIMARY KEY(entry_id),
-    CONSTRAINT fk_entry_location FOREIGN KEY(location_id) REFERENCES location(location_id),
+    CONSTRAINT fk_entry_diary FOREIGN KEY(diary_id) REFERENCES diary(diary_id),
     CONSTRAINT fk_entry_restaurant FOREIGN KEY(restaurant_id) REFERENCES restaurant(restaurant_id),
     CONSTRAINT ck_price_gt_0 CHECK (price > 0),
     CONSTRAINT ck_rating_between_0_and_5 CHECK ((rating >= 0) AND (rating <= 5))
-);
-
--- diary_entry table
-CREATE TABLE diary_entry (
-    diary_id INT NOT NULL,
-    entry_id INT NOT NULL,
-    CONSTRAINT pk_diary_entry PRIMARY KEY(diary_id, entry_id),
-    CONSTRAINT fk_diary_entry_diary FOREIGN KEY(diary_id) REFERENCES diary(diary_id),
-    CONSTRAINT fk_diary_entry_entry FOREIGN KEY(entry_id) REFERENCES entry(entry_id)
 );
 
 -- tag table
